@@ -42,7 +42,7 @@
 				mui.openWindow({url:'login.html',id:'login.html'});
 			});
 			function sethimg(path){
-				mui.post(sip+"updateUserInfo.do",{uimg:path,id:id},function(data){
+				mui.post(sip+"updateUserInfo",{uimg:path,id:id},function(data){
 					if(data=="true"){
 						console.log("修改成功");
 					}else{
@@ -68,7 +68,7 @@
 						case 1:
 							var cmr = plus.camera.getCamera();
 							cmr.captureImage(function(path) {
-								var task = plus.uploader.createUpload(sip+"uploadfile.do",
+								var task = plus.uploader.createUpload(sip+"uploadfile",
 							    		{method: "POST"},function(t, status) {
 								            if (status == 200) { 
 								                console.log("上传成功：" + t.responseText);
@@ -104,7 +104,7 @@
 							break;
 						case 2:
 							plus.gallery.pick(function(path) { 
-						        	var task = plus.uploader.createUpload(sip+"uploadfile.do",
+						        	var task = plus.uploader.createUpload(sip+"uploadfile",
 							    		{method: "POST"},function(t, status) {
 								            if (status == 200) { 
 								                console.log("上传成功：" + t.responseText);

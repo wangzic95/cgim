@@ -52,7 +52,7 @@
 					var sql="SELECT * FROM applylog where aid =?";
 					tx.executeSql(sql, [liid], function (tx, results) {
 						var tid =  results.rows.item(0).applyid;
-						mui.post(sip+"addfriend.do",{uid:user.id,tid:tid},function(data){
+						mui.post(sip+"addfriend",{uid:user.id,tid:tid},function(data){
 							if(data=="true"){
 								document.getElementById(liid+"_state").innerHTML="<p>已同意</p>";
 								plus.webview.getWebviewById("sub_contact.html").evalJS("getMyFriends()");
@@ -64,7 +64,7 @@
 				});
 			});
 			function updatelocaluserinfo(){
-				mui.post(sip+"getUser.do",{id:user.id},function(data){
+				mui.post(sip+"getUser",{id:user.id},function(data){
 					if(data!=null&&data!="null"&&data!="[]"){
 						window.localStorage.setItem("user","("+data+")");
 					}
@@ -99,7 +99,7 @@
 					operate ='<button type="button" class="mui-btn mui-btn-blue agreebtn">同意</button><button type="button" class="mui-btn mui-btn-red rejectbtn" style="margin-left: 5px;">拒绝</button>';
 				}
 				li.innerHTML='<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red deletebtn">删除</a></div>'+
-						'<div class="mui-slider-handle" ><a href="javascript:void(0)" style="color:#000000;"><img class="mui-media-object mui-pull-left" src="'+sip+'getuimg.do?uid='+apply.applyid+'">'+
+						'<div class="mui-slider-handle" ><a href="javascript:void(0)" style="color:#000000;"><img class="mui-media-object mui-pull-left" src="'+sip+'getuimg?uid='+apply.applyid+'">'+
 						'<div class="mui-media-body"><div class="bodytop">'+apply.applyname+'<span class="mtime">'+fdt(apply.sendtime)+'</span></div>'+
 						'<div class="bodybot"><p class="mui-ellipsis"  style="float: left;">'+apply.applytxt+'</p><span style="float: right;" id="'+apply.aid+'_state">'+operate+'</span></div></div></a></div>';
 				document.getElementById("adviceul").appendChild(li);

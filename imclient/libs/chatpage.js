@@ -8,8 +8,8 @@ function initpage(){
 	tid =window.localStorage.getItem("chatid");
 	tname =window.localStorage.getItem("chatname");
 	ttype =window.localStorage.getItem("chattype");
-	selfimgsrc = sip+"getuimg.do?uid="+user.id;
-	targetimgsrc=sip+"getuimg.do?uid="+tid;
+	selfimgsrc = sip+"getuimg?uid="+user.id;
+	targetimgsrc=sip+"getuimg?uid="+tid;
 	if(ttype=="2"){
 		if(righticon.classList.contains("mui-hidden")){
 			righticon.classList.remove("mui-hidden");
@@ -230,7 +230,7 @@ $.plusReady(function() {
 							uimg:selfimgsrc,
 							content: "file://" + plus.io.convertLocalFileSystemURL(path)
 						});
-						var task = plus.uploader.createUpload(sip+"uploadfile.do",
+						var task = plus.uploader.createUpload(sip+"uploadfile",
 					    		{method: "POST"},function(t, status) {
 						            if (status == 200) { 
 						                console.log("上传成功：" + t.responseText);
@@ -265,7 +265,7 @@ $.plusReady(function() {
 					break;
 				case 2:
 					plus.gallery.pick(function(path) { 
-			        	var task = plus.uploader.createUpload(sip+"uploadfile.do",
+			        	var task = plus.uploader.createUpload(sip+"uploadfile",
 				    		{method: "POST"},function(t, status) {
 					            if (status == 200) { 
 					                console.log("上传成功：" + t.responseText);
@@ -334,7 +334,7 @@ $.plusReady(function() {
 			filename: "_doc/audio/"
 		}, function(path) {
 			if (recordCancel) return;
-			var task = plus.uploader.createUpload(sip+"uploadfile.do",
+			var task = plus.uploader.createUpload(sip+"uploadfile",
 		    		{method: "POST"},function(t, status) {
 			            if (status == 200) { 
 			                console.log("上传成功：" + t.responseText); 
@@ -438,7 +438,7 @@ $.plusReady(function() {
 			sendname:message.fromname,
 			sender: sendid,
 			type: message.msgtype,
-			uimg:sip+"getuimg.do?uid="+message.fromid,
+			uimg:sip+"getuimg?uid="+message.fromid,
 			content: content
 		});
 		bindMsgList();

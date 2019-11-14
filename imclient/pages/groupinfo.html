@@ -89,14 +89,14 @@
 								var li = document.createElement("li");
 								li.className ="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3";
 								li.id=ms;
-								li.innerHTML='<a href="#"><img src="'+sip+'getuimg.do?uid='+ms+'"><div class="mui-media-body">'+ms+'</div></a>'
+								li.innerHTML='<a href="#"><img src="'+sip+'getuimg?uid='+ms+'"><div class="mui-media-body">'+ms+'</div></a>'
 								table.insertBefore(li, table.firstChild);
 							}
 						}else{
 							var li = document.createElement("li");
 							li.className ="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3";
 							li.id=members;
-							li.innerHTML='<a href="#"><img src="'+sip+'getuimg.do?uid='+members+'"><div class="mui-media-body">'+members+'</div></a>'
+							li.innerHTML='<a href="#"><img src="'+sip+'getuimg?uid='+members+'"><div class="mui-media-body">'+members+'</div></a>'
 							table.insertBefore(li, table.firstChild);
 						}
 					}
@@ -135,7 +135,7 @@
 							}
 						});
 					}
-				});
+				},"div");
 			});
 			jiesanbtn.addEventListener("tap",function(){
 				mui.confirm("确定解散该群聊？","提示",['取消', '确定'],function(e){
@@ -149,7 +149,7 @@
 							}
 						});
 					}
-				});
+				},"div");
 			});
 		</script>
 	</body>

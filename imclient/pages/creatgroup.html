@@ -46,12 +46,12 @@
 				mui(this).button('loading');
 				var groupname = mui("#groupname")[0].value;
 				if(groupname!=null&&groupname!=""){
-					mui.post(sip+"addGroup.do",{createuserid:user.id,gname:groupname,members:groupUserid,gimg:imgsrc,createname:user.name},function(data){
+					mui.post(sip+"addGroup",{createuserid:user.id,gname:groupname,members:groupUserid,gimg:imgsrc,createname:user.name},function(data){
 							if(data!="null"){
 								plus.webview.getWebviewById("groups.html").evalJS("getmygroups()");
 								mui.back();
 							}else{
-								mui.alert("该群组创建失败");
+								mui.alert("该群组创建失败","提示","确定",null,"div");
 							}
 					});
 				}else{
@@ -78,7 +78,7 @@
 						case 1:
 							var cmr = plus.camera.getCamera();
 							cmr.captureImage(function(path) {
-								var task = plus.uploader.createUpload(sip+"uploadfile.do",
+								var task = plus.uploader.createUpload(sip+"uploadfile",
 							    		{method: "POST"},function(t, status) {
 								            if (status == 200) { 
 								                console.log("上传成功：" + t.responseText);
@@ -114,7 +114,7 @@
 							break;
 						case 2:
 							plus.gallery.pick(function(path) { 
-						        	var task = plus.uploader.createUpload(sip+"uploadfile.do",
+						        	var task = plus.uploader.createUpload(sip+"uploadfile",
 							    		{method: "POST"},function(t, status) {
 								            if (status == 200) { 
 								                console.log("上传成功：" + t.responseText);

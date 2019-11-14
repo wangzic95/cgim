@@ -52,7 +52,7 @@
 				var textareaval = document.querySelector("textarea").value;
 				if(textareaval!=""&&textareaval!=null){
 					plus.nativeUI.showWaiting("发表中...");
-					mui.post(sip+"publishDynamic.do",{createuserid:user.id,createname:user.name,content:textareaval,extras:imgpathary.toString()},function(json){
+					mui.post(sip+"publishDynamic",{createuserid:user.id,createname:user.name,content:textareaval,extras:imgpathary.toString()},function(json){
 						plus.nativeUI.closeWaiting();
 						if(json=="true"){
 							mui.toast("发表成功");
@@ -75,7 +75,7 @@
 						case 1:
 							var cmr = plus.camera.getCamera();
 							cmr.captureImage(function(path) {
-								var task = plus.uploader.createUpload(sip+"uploadfile.do",{method: "POST"},function(t,status) {
+								var task = plus.uploader.createUpload(sip+"uploadfile",{method: "POST"},function(t,status) {
 								            if (status == 200) { 
 								                eval("var data="+t.responseText);
 								                if(data.result=="OK"){
@@ -107,7 +107,7 @@
 							break;
 						case 2:
 							plus.gallery.pick(function(path) { 
-						        	var task = plus.uploader.createUpload(sip+"uploadfile.do",
+						        	var task = plus.uploader.createUpload(sip+"uploadfile",
 							    		{method: "POST"},function(t, status) {
 								            if (status == 200) { 
 								                eval("var data="+t.responseText);

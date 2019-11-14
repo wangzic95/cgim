@@ -51,7 +51,7 @@
 			mui(".mui-scroll-wrapper").scroll();
 			var suserlist = document.getElementById("suserlist");
 			mui.plusReady(function(){
-				mui.post(sip+"getMyFriends.do",{id:user.id},function( data ) {
+				mui.post(sip+"getMyFriends",{id:user.id},function( data ) {
 					var userlist = eval(data);
 					for(var i=0;i<userlist.length;i++){
 						var suser = userlist[i];

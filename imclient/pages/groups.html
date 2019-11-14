@@ -54,7 +54,7 @@
 			function getmygroups(){
 				mycreateg.innerHTML="";
 				myjoing.innerHTML="";
-				mui.post(sip+"myGroups.do",{id:user.id},function( data ) {
+				mui.post(sip+"myGroups",{id:user.id},function( data ) {
 					grouplist = eval(data);
 					for(var i=0;i<grouplist.length;i++){
 						var group = grouplist[i];

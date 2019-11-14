@@ -46,7 +46,7 @@
 				getMysignList();
 			});
 			function getMysignList(){
-				mui.post(sip+"signList.do",{id:user.id},function(json){
+				mui.post(sip+"signList",{id:user.id},function(json){
 					document.querySelector(".mui-content").innerHTML="<center style='margin: 100px 0px;'>加载中...</center>";
 					if(json!=null&&json!="[]"){
 						document.querySelector(".mui-content").innerHTML="";

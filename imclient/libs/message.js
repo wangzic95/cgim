@@ -13,7 +13,7 @@ function pulldownRefresh() {
 	}, 1500);
 }
 function getofflinemsgs(){
-	mui.post(sip+"getOfflineMessages.do",{id:user.id},function(data){
+	mui.post(sip+"getOfflineMessages",{id:user.id},function(data){
 		if(data!=null&&data!=""&&data!="[]"){
 			var logs = eval(data);
 			addData(logs[logs.length-1]);
@@ -31,7 +31,6 @@ function getofflinemsgs(){
 			}
 		}else{
 			getMsgToLocalDB();
-			console.info("暂无离线记录");
 		}
 	});
 }
@@ -81,14 +80,14 @@ function addData(message) {
 		var tid = message.targettype==2?message.targetid:message.fromid;
 		var tname=message.targettype==2?message.targetname:message.fromname;
 		var msgtxt = message.targettype==2?message.fromname+": "+message.msgtext:message.msgtext;
-		var stime = fdt(message.msgtime); 
+		var stime = fdt(message.msgtime);
 		if(message.targettype==1&&message.fromid==user.id){
 			tid = message.targetid;
 			tname=message.targetname;
 		}
 		var values ="'"+tid+"',"+message.targettype+",'"+tname+"'";
 		var html ='<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red" onclick="delchatlog('+tid+')">删除</a></div>'+ 
-					'<div class="mui-slider-handle" onclick="tochat('+values+')" ><a href="javascript:void(0)" style="color:#000000;"><img class="mui-media-object mui-pull-left" src="'+sip+'getuimg.do?uid='+tid+'">'+
+					'<div class="mui-slider-handle" onclick="tochat('+values+')" ><a href="javascript:void(0)" style="color:#000000;"><img class="mui-media-object mui-pull-left" src="'+sip+'getuimg?uid='+tid+'">'+
 					'<div class="mui-media-body"><div class="bodytop">'+tname+'<span class="mtime">'+stime+'</span></div><div class="bodybot">'+
 					'<p class="mui-ellipsis">'+msgtxt+'</p><span class="mui-badge mui-badge-danger mui-hidden">1</span></div></div></a></div>';
 		var mli = document.getElementById("traget-"+tid);

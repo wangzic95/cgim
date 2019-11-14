@@ -37,7 +37,7 @@
 				});
 			});
 			function getsignUserList(){
-				mui.post(sip+"signUserList.do",{id:sid},function(json){
+				mui.post(sip+"signUserList",{id:sid},function(json){
 					if(json!=null&&json!="[]"){
 						document.getElementById("signusers").innerHTML="";
 						var signusers =JSON.parse(json);
@@ -46,7 +46,7 @@
 							var li = document.createElement("li");
 							li.id=suser.signuserid;
 							li.className="mui-table-view-cell mui-media";
-							li.innerHTML='<img class="mui-media-object mui-pull-left" src="'+sip+'getuimg.do?uid='+suser.signuserid+'">'+
+							li.innerHTML='<img class="mui-media-object mui-pull-left" src="'+sip+'getuimg?uid='+suser.signuserid+'">'+
 										'<div class="mui-media-body">'+suser.signuser+'<p class="mui-ellipsis">签到时间：'+suser.signtime+'</p></div>';
 							document.getElementById("signusers").appendChild(li);
 						}

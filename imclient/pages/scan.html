@@ -129,7 +129,7 @@
 				if(result.indexOf("/")){
 					var strary = result.split("/");
 					if(strary[0]=="addfriend"){
-						mui.post(sip+"addfriend.do",{uid:user.id,tid:strary[1]},function(data){
+						mui.post(sip+"addfriend",{uid:user.id,tid:strary[1]},function(data){
 							if(data=="true"){
 								mui.toast("扫描成功，已互相成为好友");
 								plus.webview.getWebviewById("sub_contact.html").evalJS("getMyFriends()");
@@ -137,7 +137,7 @@
 							}
 						});
 					}else if(strary[0]=="jiongroup"){
-						mui.post(sip+"joinGroup.do",{uid:user.id,gid:strary[1]},function(data){
+						mui.post(sip+"joinGroup",{uid:user.id,gid:strary[1]},function(data){
 							if(data=="true"){
 								mui.toast("扫描成功，已加入群聊");
 								plus.webview.getWebviewById("groups.html").evalJS("getmygroups()");
@@ -145,7 +145,7 @@
 							}
 						});
 					}else if(strary[0]=="scansign"){
-						mui.post(sip+"signcheck.do",{signuserid:user.id,signid:strary[1],signuser:user.name},function(data){
+						mui.post(sip+"signcheck",{signuserid:user.id,signid:strary[1],signuser:user.name},function(data){
 							if(data=="true"){
 								mui.toast("扫描成功，已签到");
 								mui.back();
@@ -155,10 +155,10 @@
 							}
 						});
 					}else{
-						mui.alert("暂不支持此操作");
+						mui.alert("暂不支持此操作","提示","确定",null,"div");
 					}
 				}else{
-					mui.alert("暂不支持此操作");
+					mui.alert("暂不支持此操作","提示","确定",null,"div");
 				}
 			}
 		</script>

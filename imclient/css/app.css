@@ -23,4 +23,7 @@
 	top: 100px;
 	left: 12px;
 }
-
+.mui-popup-input input{
+	border: 1px #F5F5F5 solid;
+	height: 30px;
+}

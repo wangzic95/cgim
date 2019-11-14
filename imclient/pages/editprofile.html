@@ -59,7 +59,7 @@
 				picker.show(function(rs) {
 					var mbirthday = rs.text;
 					document.getElementById("birthdaytxt").innerHTML =mbirthday.replace(/-/g,"/");
-					mui.post(sip+"updateUserInfo.do",{mbirthday:mbirthday,id:user.id},function(data){
+					mui.post(sip+"updateUserInfo",{mbirthday:mbirthday,id:user.id},function(data){
 						if(data=="true"){
 							console.log("修改成功");
 						}else{
@@ -76,7 +76,7 @@
 				genderPicker.show(function(items) {
 					var gendert = items[0].text;
 					document.getElementById("gender").innerHTML =gendert;
-					mui.post(sip+"updateUserInfo.do",{gender:gendert,id:user.id},function(data){
+					mui.post(sip+"updateUserInfo",{gender:gendert,id:user.id},function(data){
 						if(data=="true"){
 							console.log("修改成功");
 						}else{
@@ -87,7 +87,7 @@
 			}, false);
 			function setdata(){
 				document.getElementById("name").innerHTML=user.name;
-				document.getElementById("photo").src = sip+"getuimg.do?uid="+user.id;
+				document.getElementById("photo").src = sip+"getuimg?uid="+user.id;
 				document.getElementById("gender").innerHTML=user.gender||"未填写";
 				var birthday="未填写";
 				if(user.birthday!=undefined){
@@ -103,7 +103,7 @@
 					setdata();
 				});
 				plus.webview.currentWebview().addEventListener("hide",function(){
-					mui.post(sip+"getUser.do",{id:user.id},function(data){
+					mui.post(sip+"getUser",{id:user.id},function(data){
 						if(data!=null&&data!="null"&&data!="[]"){
 							window.localStorage.setItem("user","("+data+")");
 						}
@@ -111,7 +111,7 @@
 				});
 			})
 			function sethimg(path){
-				mui.post(sip+"updateUserInfo.do",{uimg:path,id:user.id},function(data){
+				mui.post(sip+"updateUserInfo",{uimg:path,id:user.id},function(data){
 					if(data=="true"){
 						console.log("修改成功");
 					}else{
@@ -138,7 +138,7 @@
 						case 1:
 							var cmr = plus.camera.getCamera();
 							cmr.captureImage(function(path) {
-								var task = plus.uploader.createUpload(sip+"uploadfile.do",
+								var task = plus.uploader.createUpload(sip+"uploadfile",
 							    		{method: "POST"},function(t, status) {
 								            if (status == 200) { 
 								                console.log("上传成功：" + t.responseText);
@@ -173,7 +173,7 @@
 							break;
 						case 2:
 							plus.gallery.pick(function(path) { 
-						        	var task = plus.uploader.createUpload(sip+"uploadfile.do",
+						        	var task = plus.uploader.createUpload(sip+"uploadfile",
 							    		{method: "POST"},function(t, status) {
 								            if (status == 200) { 
 								                console.log("上传成功：" + t.responseText);
@@ -213,7 +213,7 @@
 					if (e.index == 1) {
 						var valuename = e.value;
 						document.getElementById("name").innerText = valuename;
-						mui.post(sip+"updateUserInfo.do",{name:valuename,id:user.id},function(data){
+						mui.post(sip+"updateUserInfo",{name:valuename,id:user.id},function(data){
 							if(data=="true"){
 								console.log("修改成功");
 							}else{
@@ -221,14 +221,14 @@
 							}
 						});
 					}
-				})	
+				},"div")	
 			});
 			document.getElementById("diqu").addEventListener("tap",function(){
 				mui.prompt('例如：河南 郑州','','请输入地区', ['取消', '确定'], function(e) {
 					if (e.index == 1) {
 						var valuename = e.value;
 						document.getElementById("address").innerText = valuename;
-						mui.post(sip+"updateUserInfo.do",{address:valuename,id:user.id},function(data){
+						mui.post(sip+"updateUserInfo",{address:valuename,id:user.id},function(data){
 							if(data=="true"){
 								console.log("修改成功");
 							}else{
@@ -236,14 +236,14 @@
 							}
 						});
 					}
-				})	
+				},"div")	
 			});
 			document.getElementById("qianming").addEventListener("tap",function(){
 				mui.prompt('个性签名彰显个性自我','','请输入个性签名', ['取消', '确定'], function(e) {
 					if (e.index == 1) {
 						var valuename = e.value;
 						document.getElementById("signature").innerText = valuename;
-						mui.post(sip+"updateUserInfo.do",{signature:valuename,id:user.id},function(data){
+						mui.post(sip+"updateUserInfo",{signature:valuename,id:user.id},function(data){
 							if(data=="true"){
 								console.log("修改成功");
 							}else{
@@ -251,7 +251,7 @@
 							}
 						});
 					}
-				})	
+				},"div")	
 			});
 		</script>
 	</body>

@@ -64,12 +64,10 @@
 				getMyFriends();
 			});
 			function getMyFriends(){
-				mui.post(sip+"getMyFriends.do",{id:user.id},function( data ) {
+				mui.post(sip+"getMyFriends",{id:user.id},function( data ) {
 					if(data!="[]"){
 						userlist = eval(data);
 						refreshcontacts(); 
-					}else{
-						mui.toast("暂无好友信息");
 					}
 				});
 			}
@@ -80,7 +78,7 @@
 					var suser = userlist[i];
 					if(suser.id!=user.id){
 						var li = document.createElement('li');
-						var imgpath =sip+suser.uimg
+						var imgpath =sip+"getuimg?uid="+suser.id;
 						li.className = 'mui-table-view-cell mui-media';
 						li.innerHTML='<a href="javascript:void(0)" onclick="toprofile('+i+')">'+
 									'<img class="mui-media-object mui-pull-left" src="'+imgpath+'">'+

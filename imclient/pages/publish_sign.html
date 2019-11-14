@@ -91,7 +91,7 @@
 			}
 			document.querySelector(".icon-yuanxingxuanzhong").addEventListener("tap",function(){
 				if(setdata()){
-					mui.post(sip+"publishSign.do",postdata,function(json){
+					mui.post(sip+"publishSign",postdata,function(json){
 						if(json=="true"){
 							mui.toast("创建成功");
 							plus.webview.getWebviewById("signlist.html").evalJS("getMysignList()");

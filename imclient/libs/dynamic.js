@@ -19,7 +19,7 @@ mui.plusReady(function(){
 var dynamiclist={};
 //获取动态列表
 function getdynamiclist(){
-	mui.post(sip+"dynamicList.do",{id:user.id},function(json){
+	mui.post(sip+"dynamicList",{id:user.id},function(json){
 		document.querySelector(".mui-content").innerHTML="";
 		var data = JSON.parse(json);
 		if(data.length>0){
@@ -35,7 +35,7 @@ function getdynamiclist(){
 }
 //根据id获取评论
 function getcomment(id){
-	mui.post(sip+"commentList.do",{did:id},function(json){
+	mui.post(sip+"commentList",{did:id},function(json){
 		var comments = JSON.parse(json);
 		var html="";
 		if(comments.length>0){
@@ -95,7 +95,7 @@ function adddata(cinfo){
 			zans=names+" "+"1人觉得很赞";
 		}
 	}
-	card.innerHTML='<img class="dy-uimg" src="'+sip+'getuimg.do?uid='+cinfo.createuserid+'"><div class="dy-body"><div class="dy-header"><a id="'+cinfo.createuserid+'">'+cinfo.createname+'</a><span>'+fdt(cinfo.createtime)+'</span></div><div class="dy-content">'+infotext+imgdiv+'</div>'+
+	card.innerHTML='<img class="dy-uimg" src="'+sip+'getuimg?uid='+cinfo.createuserid+'"><div class="dy-body"><div class="dy-header"><a id="'+cinfo.createuserid+'">'+cinfo.createname+'</a><span>'+fdt(cinfo.createtime)+'</span></div><div class="dy-content">'+infotext+imgdiv+'</div>'+
 				   '<div class="dy-operate"><span class="mui-icon iconfont icon-duihuaxinxitianchong"></span>'+zanbtn+deletebtn+'</div><div class="zannames">'+zans+'</div></div>';
 	document.querySelector(".mui-content").appendChild(card);
 	getcomment(cinfo.id);
@@ -120,7 +120,7 @@ combtn.addEventListener("tap",function(){
 		postdata.userid=user.id;
 		postdata.username=user.name;
 		postdata.content = comcontent;
-		mui.post(sip+"publishComment.do",postdata,function(json){
+		mui.post(sip+"publishComment",postdata,function(json){
 			if(json=="true"){
 				var dycom =document.getElementById(cdyid).querySelector(".dy-comment");
 				var html;
@@ -177,7 +177,7 @@ mui(".mui-content").on("tap",".icon-zantianchong",function(){
 });
 function pointzan(obj,operate){
 	var namediv = document.getElementById(cdyid).querySelector(".zannames");
-	mui.post(sip+operate+".do",{id:cdyid,userid:user.id,username:user.name},function(json){
+	mui.post(sip+operate+"",{id:cdyid,userid:user.id,username:user.name},function(json){
 		var res = JSON.parse(json);
 		if(res.success==true){
 			var names =res.names; 
@@ -208,14 +208,14 @@ mui(".mui-content").on("tap",".icon-shanchutianchong",function(){
 	cdyid= this.parentNode.parentNode.parentNode.id;
 	mui.confirm("确认删除该动态？","提示",["取消","确定"],function(e){
 		if (e.index == 1) {
-			mui.post(sip+"deleteDynamic.do",{id:cdyid},function(json){
+			mui.post(sip+"deleteDynamic",{id:cdyid},function(json){
 				if(json=="true"){
 					document.getElementById(cdyid).remove();
 					mui.toast("删除成功");
 				}
 			})
 		}
-	});
+	},"div");
 });
 //收起全文
 mui(".mui-content").on("tap",".seeall",function(){

@@ -72,7 +72,7 @@
 			window.addEventListener('toprofile',function(event){
 				userinfo=event.detail.userinfo;
 				if(user.id!=userinfo.id){
-					mui.post(sip+"getUser.do",{id:user.id},function(data){
+					mui.post(sip+"getUser",{id:user.id},function(data){
 						if(data!=null&&data!="null"&&data!="[]"){
 							var newinfo = eval("("+data+")");
 							if(newinfo.friends!=null){
@@ -90,12 +90,12 @@
 					
 				}
 				document.getElementById("uname").innerText=userinfo.name||"";
-				document.getElementById("ugender").innerText=(userinfo.gender||"")+"/22岁";
+				document.getElementById("ugender").innerText=(userinfo.gender||"");
 				document.getElementById("ubirthday").innerText=userinfo.birthday==undefined?"":new Date(userinfo.birthday).toLocaleDateString();
 				document.getElementById("uemail").innerText=userinfo.email||"";
 				document.getElementById("pnumber").innerText=userinfo.cellphone||"";
 				document.getElementById("uaddress").innerText=userinfo.address||"";
-				document.getElementById("himg").src=sip+(userinfo.uimg||"");
+				document.getElementById("himg").src=sip+"getuimg?uid="+userinfo.id;
 			});
 			document.getElementById("phone").addEventListener('tap', function(event) {
 				var pnumber = document.getElementById("pnumber").innerText;
@@ -139,7 +139,7 @@
 				}else if(txt=="删除好友"){
 					mui.confirm("确定删除该好友？","提示",['取消', '确定'],function(e){
 						if(e.index==1){
-							mui.post(sip+"deletefriend.do",{uid:user.id,tid:userinfo.id},function(data){
+							mui.post(sip+"deletefriend",{uid:user.id,tid:userinfo.id},function(data){
 								if(data=="true"){
 									plus.webview.getWebviewById("sub_contact.html").evalJS("getMyFriends()");
 									plus.webview.getWebviewById("sub_message.html").evalJS("delchatlog('"+userinfo.id+"')");
@@ -148,7 +148,7 @@
 								}
 							});
 						}
-					});
+					},"div");
 				}
 			});
 			mui.plusReady(function(){
