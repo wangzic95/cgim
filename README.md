@@ -1,6 +1,6 @@
 # cgim
-服务端：用myeclipse开发,jdk.1.7,tomcat7
-客户端：用hbuilder开发，可直接打发布成apk或ipa安装包
+服务端：用idea开发,jdk.1.7,tomcat8
+客户端：用hbuilderX开发，可直接打发布成apk或ipa安装包
 sql文件：cgim.sql用的mysql5.6+
 
 帮助：可百度MUI查看mui开发文档hbuilder中有mui演示项目，可新建一个从其中找到自己所需的控件进行使用
@@ -11,4 +11,4 @@ sql文件：cgim.sql用的mysql5.6+
 	3.在hbuilder上打开客户端，连接手机运行app（或直接将apk安装到手机）
 	4.打开app，在开始页面点击齿轮设置服务端访问路径，保存并重新启动即可
 或直接
-	5.注册账户，注册成功后记住系统返回的账号，然后登录。
+	5.注册账户，注册成功登录。
