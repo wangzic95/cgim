@@ -73,8 +73,7 @@ window.addEventListener('sendmsg',function(event){
 
 });
 function receivemsg(message){
-    eval("var msg="+message);
-    console.info(msg.msgtype);
+	var msg = JSON.parse(message);
     if(msg.msgtype=="application"){
         firedata("newfriend.html","receivemsg",{message:msg});
         showbadge("apply");

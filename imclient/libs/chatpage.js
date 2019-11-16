@@ -30,7 +30,6 @@ righticon.addEventListener("tap",function(){
 });
 window.addEventListener('receivemsg',function(event){
 		var message =event.detail.message;
-		console.info(message.fromname);
 		if(message.targettype=="1"&&message.fromid==tid){
 			addData(message);
 		}else if(message.targettype=="2"&&message.targetid==tid){

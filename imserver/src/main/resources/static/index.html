@@ -4,31 +4,51 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="超哥通讯 - 产品首页">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v3.8.6">
-    <meta name="msapplication-config" content="https://v4.bootcss.com/docs/4.3/assets/img/favicons/browserconfig.xml">
     <meta name="theme-color" content="#563d7c">
     <title>超哥通讯 - 产品首页</title>
     <link rel="icon" href="img/favicon.ico">
     <!-- Bootstrap core CSS -->
-    <link href="https://v4.bootcss.com/docs/4.3/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="components/bootstrap-4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="https://v4.bootcss.com/docs/4.3/examples/product/product.css" rel="stylesheet">
-    <style type="text/css">
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-    </style>
+    <link href="css/product.css" rel="stylesheet">
+    <link href="components/bootstrap-4.3.1/css/popup.css" rel="stylesheet">
+    <script src="components/jquery/jquery.min.js"></script>
+    <script src="components/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+    <script src="components/bootstrap-4.3.1/js/popup.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            let wsurl = 'ws://49.234.236.56:8686/cgim/wsim/999999999';//公网地址
+            // let wsurl = 'ws://192.168.0.102:8686/cgim/wsim/999999999';//内网地址
+            let ws = new WebSocket(wsurl);
+            ws.onmessage = function(event) {bs4pop.toast(JSON.parse(event.data).msgtext,{autoClose:false,type:"primary",title:"您有新的消息"})};
+            ws.onopen  = function(event){ console.info("留言板已连线",event)};
+            ws.onclose = function(event){console.info("留言板已关闭",event)};
+            ws.onerror = function(event){console.info("留言板出错",event)};
+            $("#leaveMsg").on("click",function () {
+                bs4pop.prompt("想给我留言什么呢？",null,function (res,value) {
+                    if(res){
+                        ws.send('{"mid":"0","fromtype":"user","fromid":"999999999","fromname":"留言板","msgextras":"","msgtype":"text","targetid":"1000000000","targetname":"超级管理员","targettype":"1",' +
+                            '"msgtext":"'+value+'","msgtime":"'+new Date().Format("yyyy-MM-dd HH:mm:ss")+'"}');
+                    }
+                },{title:"留言板"},"请输入留言内容");
+            });
+            Date.prototype.Format = function (fmt) {
+                var o = {
+                    "M+": this.getMonth() + 1, //月份
+                    "d+": this.getDate(), //日
+                    "H+": this.getHours(), //小时
+                    "m+": this.getMinutes(), //分
+                    "s+": this.getSeconds(), //秒
+                    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                    "S": this.getMilliseconds() //毫秒
+                };
+                if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                for (var k in o)
+                    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                return fmt;
+            };
+        });
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow py-2 sticky-top ">
@@ -43,10 +63,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto px-md-4" >
                 <li class="nav-item active"><a class="nav-link px-3" href="#">首页</a></li>
-                <li class="nav-item"><a class="nav-link px-3" href="#">产品介绍</a></li>
                 <li class="nav-item"><a class="nav-link px-3" href="assets/cgim.apk">产品下载</a></li>
                 <li class="nav-item"><a class="nav-link px-3" href="https://blog.csdn.net/qq_24473141" target="_blank">博客</a></li>
                 <li class="nav-item"><a class="nav-link px-3" href="#">关于我们</a></li>
+                <li class="nav-item"><a class="nav-link px-3" id="leaveMsg" href="javascript:;">给我留言</a></li>
             </ul>
         </div>
     </nav>
@@ -174,10 +194,5 @@
             </div>
         </div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-        window.jQuery || document.write('<script src="https://v4.bootcss.com/docs/4.3/assets/js/vendor/jquery.slim.min.js"><\/script>')
-    </script>
-    <script src="https://v4.bootcss.com/docs/4.3/dist/js/bootstrap.bundle.js"></script>
 </body>
 </html>
