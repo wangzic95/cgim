@@ -77,7 +77,11 @@
 			window.onload =function(){
 				initpage();
 			}
-			function initpage(){
+			function initpage(newUserinfo){
+				if(newUserinfo){
+					user =newUserinfo;
+				}
+				console.info("初始化用户信息："+JSON.stringify(user));
 				document.getElementById("username").innerHTML=user.name;
 				if(user.birthday!=undefined){
 					var age = new Date().getFullYear()-new Date(user.birthday).getFullYear();
@@ -88,6 +92,9 @@
 				document.getElementById("hobby").innerHTML=user.hobby||"";
 				document.getElementById("userimg").src=sip+"getuimg?uid="+user.id;
 			}
+			window.addEventListener('refreshUserInfo',function(event){
+				initpage(event.detail.newUserinfo);
+			});
 		</script>
 	</body>
 

@@ -51,7 +51,24 @@
 		<script src="../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init({
+				beforeback: function(){
+					mui.ajax(sip+"getUser",{
+						data:{id:user.id},
+						async:false,
+						type:'post',//HTTP请求类型
+						success:function(data){
+							if(data!=null&&data!="null"&&data!="[]"){
+								window.localStorage.setItem("user",JSON.stringify(data));
+								user = eval("("+data+")");
+								console.info("刷新用户信息成功");
+							}
+						}
+					});
+					mui.fire(plus.webview.getWebviewById('sub_personal.html'),'refreshUserInfo',{newUserinfo:user});
+					return true;
+				}
+			});
 			document.getElementById("birthday").addEventListener("tap",function(){
 				var optionsJson = '{"type":"date","beginYear":1900}';
 				var options = JSON.parse(optionsJson);
@@ -60,7 +77,7 @@
 					var mbirthday = rs.text;
 					document.getElementById("birthdaytxt").innerHTML =mbirthday.replace(/-/g,"/");
 					mui.post(sip+"updateUserInfo",{mbirthday:mbirthday,id:user.id},function(data){
-						if(data=="true"){
+						if(data=="1"){
 							console.log("修改成功");
 						}else{
 							console.log("修改失败");
@@ -77,7 +94,7 @@
 					var gendert = items[0].text;
 					document.getElementById("gender").innerHTML =gendert;
 					mui.post(sip+"updateUserInfo",{gender:gendert,id:user.id},function(data){
-						if(data=="true"){
+						if(data=="1"){
 							console.log("修改成功");
 						}else{
 							console.log("修改失败");
@@ -112,7 +129,7 @@
 			})
 			function sethimg(path){
 				mui.post(sip+"updateUserInfo",{uimg:path,id:user.id},function(data){
-					if(data=="true"){
+					if(data=="1"){
 						console.log("修改成功");
 					}else{
 						console.log("修改失败");
@@ -214,7 +231,7 @@
 						var valuename = e.value;
 						document.getElementById("name").innerText = valuename;
 						mui.post(sip+"updateUserInfo",{name:valuename,id:user.id},function(data){
-							if(data=="true"){
+							if(data=="1"){
 								console.log("修改成功");
 							}else{
 								console.log("修改失败");
@@ -229,7 +246,7 @@
 						var valuename = e.value;
 						document.getElementById("address").innerText = valuename;
 						mui.post(sip+"updateUserInfo",{address:valuename,id:user.id},function(data){
-							if(data=="true"){
+							if(data=="1"){
 								console.log("修改成功");
 							}else{
 								console.log("修改失败");
@@ -244,7 +261,7 @@
 						var valuename = e.value;
 						document.getElementById("signature").innerText = valuename;
 						mui.post(sip+"updateUserInfo",{signature:valuename,id:user.id},function(data){
-							if(data=="true"){
+							if(data=="1"){
 								console.log("修改成功");
 							}else{
 								console.log("修改失败");

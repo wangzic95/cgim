@@ -1,6 +1,8 @@
+//使用公网测试服务可打开下面一行的注释
+// window.localStorage.setItem("sip","http://49.234.236.56:8686/cgim/");
 var sip = window.localStorage.getItem("sip");
 var userStr = window.localStorage.getItem("user");
-if(userStr.substring(0,1)=="(" && userStr.substring(userStr.length-1)==")"){
+if(userStr && userStr.substring(0,1)=="(" && userStr.substring(userStr.length-1)==")"){
 	userStr = userStr.substring(1,userStr.length-1);
 }
 var user = JSON.parse(userStr);
